@@ -14,7 +14,6 @@ public class HueHubNetworkDiscover {
         self.appName = appName
     }
     
-    
     public func retriveHueBridgeInNetwork(completion: @escaping(Result<[Bridge], Error>) -> Void) {
         let target: HueApi = .searchBridge
         HueNetworkController.requestApi(target) { (res: [HueBridge]) in
