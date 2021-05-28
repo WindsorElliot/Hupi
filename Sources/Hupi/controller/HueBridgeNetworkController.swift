@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HueBridgeNetworkController.swift
 //  
 //
 //  Created by Elliot Cunningham on 27/05/2021.
@@ -8,14 +8,14 @@
 import Foundation
 import Moya
 
-class HueNetworkController {
+class HueBridgeNetworkController {
     private static var provider: MoyaProvider<HueApi> {
         let isTesting: Bool = NSClassFromString("XCTestCase") != nil
         return isTesting
             ? MoyaProvider<HueApi>(stubClosure: { (_) -> StubBehavior in return .immediate  })
             : MoyaProvider<HueApi>(
-                endpointClosure: HueNetworkController._endPointClosure,
-                requestClosure: HueNetworkController._requestClosure
+                endpointClosure: HueBridgeNetworkController._endPointClosure,
+                requestClosure: HueBridgeNetworkController._requestClosure
             )
     }
     
@@ -64,7 +64,7 @@ class HueNetworkController {
         provider.request(target) { result in
             switch result {
             case .success(let response):
-                if true == HueNetworkController.isRequestSucceed(response) {
+                if true == HueBridgeNetworkController.isRequestSucceed(response) {
                     do {
                         let body = try JSONDecoder().decode(C.self, from: response.data)
                         successCompletion(body)
@@ -73,7 +73,7 @@ class HueNetworkController {
                         faillureCompletion(error)
                     }
                 } else {
-                    faillureCompletion(HueNetworkController.mapResponseToError(response: response))
+                    faillureCompletion(HueBridgeNetworkController.mapResponseToError(response: response))
                 }
             case .failure(let error):
                 faillureCompletion(error)

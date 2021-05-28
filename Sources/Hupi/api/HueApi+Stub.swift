@@ -13,7 +13,7 @@ extension HueApi {
         case .searchBridge:
             return "[{\"id\":\"001788fffe100491\",\"internalipaddress\":\"192.168.2.23\",\"macaddress\":\"00:17:88:10:04:9\",\"name\":\"Philips Hue\"}]"
         case .connect(_, _):
-            return "SimpleDara"
+            return "[{\"success\":{\"username\":\"1234bridgeapp\"}}]"
         }
     }
 }

@@ -15,7 +15,7 @@
             var bridgesFinded: [Bridge]? = nil
             var errorFinded: Error? = nil
             
-            HueHubNetworkDiscover("testapp").retriveHueBridgeInNetwork { result in
+            HueBridgeNetworkDiscover("testapp").retriveHueBridgeInNetwork { result in
                 expectationSearch.fulfill()
                 switch result {
                 case .success(let bridges):
@@ -37,5 +37,34 @@
             let findedBridge = bridges.first(where: { $0.internalIpAddress == ipToFind })
             
             XCTAssertNotNil(findedBridge)
+        }
+        
+        func testConnectBridge() {
+            let expectationConnect = expectation(description: ".connectBridge")
+            var response: String?
+            var errorFinded: Error?
+            
+            HueBridgeNetworkDiscover("testapp").connectHueBridge("192.168.2.23") { res in
+                expectationConnect.fulfill()
+                switch res {
+                case .success(let data):
+                    response = data
+                case .failure(let error):
+                    errorFinded = error
+                }
+            }
+            
+            wait(for: [expectationConnect], timeout: 2)
+            
+            XCTAssertNil(errorFinded)
+            XCTAssertNotNil(response)
+            
+            guard let username = response else {
+                XCTAssertTrue(false, "nil for username")
+                return
+            }
+            
+            XCTAssertEqual(username, "1234bridgeapp")
+            
         }
     }

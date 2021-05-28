@@ -1,5 +1,5 @@
 //
-//  HueHubNetworkDiscover.swift
+//  HueBridgeNetworkDiscover.swift
 //  
 //
 //  Created by Elliot Cunningham on 27/05/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class HueHubNetworkDiscover {
+public class HueBridgeNetworkDiscover {
     private let appName: String
     
     public init(_ appName: String) {
@@ -16,7 +16,7 @@ public class HueHubNetworkDiscover {
     
     public func retriveHueBridgeInNetwork(completion: @escaping(Result<[Bridge], Error>) -> Void) {
         let target: HueApi = .searchBridge
-        HueNetworkController.requestApi(target) { (res: [HueBridge]) in
+        HueBridgeNetworkController.requestApi(target) { (res: [HueBridge]) in
             let bridges = res.compactMap({ Bridge($0) })
             completion(.success(bridges))
         } faillureCompletion: { error in
@@ -26,7 +26,7 @@ public class HueHubNetworkDiscover {
     
     public func connectHueBridge(_ hueIpAddress: String, completion: @escaping(Result<String, Error>) -> Void) {
         let target: HueApi = .connect(address: hueIpAddress, appName: self.appName)
-        HueNetworkController.requestApi(target) { (res: [HueBridgeConnectBodyResponse]) in
+        HueBridgeNetworkController.requestApi(target) { (res: [HueBridgeConnectBodyResponse]) in
             if let success = res.first?.success {
                 completion(.success(success.username))
             } else if let faillure = res.first?.error {
