@@ -1,5 +1,7 @@
 # Hupi
 
+![Hupi build](https://github.com/WindsorElliot/Hupi/actions/workflows/swift.yml/badge.svg)
+
 A swift package for use Philips Hue Lights API
 
 ## Version
@@ -33,14 +35,17 @@ the HueHubNetworkDiscover class is use for discover and connect to a Hue bridge,
 
 ## Avaible Hupi's Model class
 
-#### Bridge
+#### Bridge : 
 
- the representation of the bridge, extends of NSObject
+The representation of the bridge, extends of NSObject.
 
-    * id: Unique identifier of the bridge
-    * internalIpAddress: Bridge's IP address on your network
-    * macAddress: Bridge Mac Address
-    * name: The name of the material
+
+* id: Unique identifier of the bridge
+* internalIpAddress: Bridge's IP address on your network
+* macAddress: Bridge Mac Address
+* name: The name of the material
+
+
 
     ```swift
     public let id: String
