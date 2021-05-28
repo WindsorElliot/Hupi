@@ -10,13 +10,13 @@
         }
         
         func testSearchBridgeEndpoint() {
-            let expectation = expectation(description: ".searchBridge")
+            let expectationSearch = expectation(description: ".searchBridge")
             let ipToFind = "192.168.2.23"
             var bridgesFinded: [Bridge]? = nil
             var errorFinded: Error? = nil
             
             HueHubNetworkDiscover("testapp").retriveHueBridgeInNetwork { result in
-                expectation.fulfill()
+                expectationSearch.fulfill()
                 switch result {
                 case .success(let bridges):
                     bridgesFinded = bridges
@@ -25,7 +25,7 @@
                 }
             }
             
-            wait(for: [expectation], timeout: 2)
+            wait(for: [expectationSearch], timeout: 2)
             XCTAssertNil(errorFinded)
             XCTAssertNotNil(bridgesFinded)
             

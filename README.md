@@ -42,7 +42,6 @@ the HueHubNetworkDiscover class is use for discover and connect to a Hue bridge,
     * macAddress: Bridge Mac Address
     * name: The name of the material
 
-
     ```swift
     public let id: String
     public let internalIpAddress: String
